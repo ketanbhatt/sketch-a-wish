@@ -1,5 +1,5 @@
 from django.contrib import admin
-from saw.models import Wish, Sketch
+from saw.models import Wish, Sketch, UserProfile
 
 # Register your models here.
 class WishAdmin(admin.ModelAdmin):
@@ -10,3 +10,4 @@ class SketchAdmin(admin.ModelAdmin):
 
 admin.site.register(Wish, WishAdmin)
 admin.site.register(Sketch, SketchAdmin)
+admin.site.register(UserProfile)

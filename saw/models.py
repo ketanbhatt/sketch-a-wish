@@ -27,3 +27,11 @@ class Sketch(models.Model):
 
     def __unicode__(self):
         return self.title
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+
+    country = models.CharField(max_length=128, default="Somewhere in the World" )
+
+    def __unicode__(self):
+        return self.user.username
