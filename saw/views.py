@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from saw.forms import UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.
 def sketchawish(request):
@@ -36,3 +39,32 @@ def register(request):
                   'saw/register.html',
                   {'user_form' : user_form, 'profile_form' : profile_form, 'registered' : registered})
 
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/sketchawish/')
+
+            else:
+                return HttpResponse("Your account is deactivated")
+
+        else:
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+
+    else:
+        return render(request, 'saw/login.html', {})
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+
+    return HttpResponseRedirect('/sketchawish/')

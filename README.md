@@ -3,9 +3,9 @@ A website made for increasing social interaction among the users of the internet
 
 
 ##To Do:
-    + Add login
-    + Add logout
     + Add form for adding wish
     + Add form for adding sketch
     + Add user profile
     + Add social auth
+    + Hide User Profiles link from admin
+    + Show User Profile information inside Users link only
