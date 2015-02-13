@@ -1,6 +1,4 @@
-from django.shortcuts import render, redirect, render_to_response
-from django.contrib.auth import logout as auth_logout
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 # Create your views here.
 def sketchawish(request):
