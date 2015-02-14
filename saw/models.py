@@ -6,6 +6,7 @@ class Wish(models.Model):
     content = models.CharField(max_length=500)
     wisher = models.ForeignKey(User)
     created_on = models.DateTimeField(auto_now_add=True)
+    locked = models.BooleanField(default=False)
 
     class Meta():
         verbose_name_plural = 'Wishes'
@@ -32,6 +33,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     country = models.CharField(max_length=128, default="Somewhere in the World" )
+    sketched = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.user.username
