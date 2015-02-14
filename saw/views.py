@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from saw.forms import UserForm, UserProfileForm
+from saw.forms import UserForm, UserProfileForm, WishForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
@@ -68,3 +68,27 @@ def user_logout(request):
     logout(request)
 
     return HttpResponseRedirect('/sketchawish/')
+
+
+@login_required
+def add_wish(request):
+    if request.method == "POST":
+        wish_form = WishForm(request.POST)
+
+        if wish_form.is_valid():
+            wish = wish_form.save(commit=False)
+            wish.wisher = request.user
+            wish.save()
+
+            return sketchawish(request)
+
+        else:
+            print wish_form.errors
+
+    else:
+        wish_form = WishForm()
+
+    return render(request, 'saw/add_wish.html', {'wish_form': wish_form})
+
+
+
