@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from saw.models import Wish
-from saw.forms import UserForm, UserProfileForm, WishForm, SketchForm
+from saw.forms import UserForm, UserProfileForm, WishForm, SketchForm, GetWishForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
@@ -91,6 +91,26 @@ def add_wish(request):
 
     return render(request, 'saw/add_wish.html', {'wish_form': wish_form})
 
+@login_required
+def get_wish(request):
+    if request.method == "POST":
+        get_wish_form = GetWishForm(request.POST)
+
+        if get_wish_form.is_valid():
+            to_sketch = get_wish_form.save(commit=False)
+            to_sketch.sketcher = request.user
+            to_sketch.save()
+            Wish.objects.filter(pk=request.POST['wish']).update(locked=True)
+
+            return sketchawish(request)
+
+        else:
+            print get_wish_form.errors
+
+    else:
+        get_wish_form = GetWishForm()
+
+    return render(request, 'saw/get_wish.html', {'get_wish_form': get_wish_form})
 
 @login_required
 def add_sketch(request):

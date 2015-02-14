@@ -21,7 +21,8 @@ class Sketch(models.Model):
     sketcher = models.ForeignKey(User)
     image_temp = models.CharField(max_length=128)
     likes = models.IntegerField(default=0)
-    created_on = models.DateTimeField(auto_now_add=True)
+    assigned_on = models.DateTimeField(auto_now_add=True)
+    submitted_on = models.DateTimeField(auto_now=True)
 
     class Meta():
         verbose_name_plural = 'Sketches'
