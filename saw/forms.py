@@ -20,3 +20,12 @@ class WishForm(forms.ModelForm):
     class Meta:
         model = Wish
         fields = ('content',)
+
+class SketchForm(forms.ModelForm):
+    wish = forms.ModelChoiceField(queryset= Wish.objects.filter(pk__in = Wish.objects.filter(locked=False)[:3].values_list('pk')), initial=0)
+    title = forms.CharField(help_text='Enter title for your Sketch', required=False)
+    image_temp = forms.CharField(help_text='Imagine this is an upload button for image, write anything')
+
+    class Meta:
+        model = Sketch
+        fields = ('wish', 'title', 'image_temp')

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sketch A Wish</title>
+</head>
+<body>
+
+    <form id="sketch_form" method="post" action="/sketchawish/add_sketch/">
+        {% csrf_token %}
+
+        {% for field in sketch_form %}
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}
+            <br />
+        {% endfor %}
+
+        <input type="submit" name="submit" value="Here is the Sketch!" />
+    </form>
+
+</body>
+</html>
