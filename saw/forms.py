@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import F
 from django.contrib.auth.models import User
 from saw.models import Wish, Sketch, UserProfile
 
@@ -29,10 +30,14 @@ class GetWishForm(forms.ModelForm):
         fields = ('wish',)
 
 class SketchForm(forms.ModelForm):
-    wish = forms.ModelChoiceField(queryset= Wish.objects.filter(pk__in = Wish.objects.filter(locked=False)[:3].values_list('pk')), initial=0)
-    title = forms.CharField(help_text='Enter title for your Sketch', required=False)
+    wish = forms.ModelChoiceField(queryset= Sketch.objects.all(), initial=0)
     image_temp = forms.CharField(help_text='Imagine this is an upload button for image, write anything')
+
+    def __init__(self, *args, **kwargs):
+        wish_qs = kwargs.pop('wish_qs')
+        super(SketchForm, self).__init__(*args, **kwargs)
+        self.fields['wish'].queryset = wish_qs
 
     class Meta:
         model = Sketch
-        fields = ('wish', 'title', 'image_temp')
+        fields = ('wish', 'image_temp')

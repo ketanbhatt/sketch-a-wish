@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from saw.models import Wish
+from saw.models import Wish, Sketch
 from saw.forms import UserForm, UserProfileForm, WishForm, SketchForm, GetWishForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -115,13 +115,11 @@ def get_wish(request):
 @login_required
 def add_sketch(request):
     if request.method == "POST":
-        sketch_form = SketchForm(request.POST)
+        sketch_form = SketchForm(request.POST, wish_qs=Sketch.objects.filter(sketcher=request.user))
 
         if sketch_form.is_valid():
-            sketch = sketch_form.save(commit=False)
-            sketch.sketcher = request.user
-            sketch.save()
-            Wish.objects.filter(pk=request.POST['wish']).update(locked=True)
+            add_sketch = sketch_form.save(commit=False)
+            add_sketch.save()
 
             return sketchawish(request)
 
@@ -129,6 +127,7 @@ def add_sketch(request):
             print sketch_form.errors
 
     else:
-        sketch_form = SketchForm()
+        sketch_form = SketchForm(wish_qs=Sketch.objects.filter(sketcher=request.user))
+
 
     return render(request, 'saw/add_sketch.html', {'sketch_form': sketch_form})

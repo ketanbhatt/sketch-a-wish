@@ -17,7 +17,6 @@ class Wish(models.Model):
 
 class Sketch(models.Model):
     wish = models.ForeignKey(Wish)
-    title = models.CharField(max_length=128)
     sketcher = models.ForeignKey(User)
     image_temp = models.CharField(max_length=128)
     likes = models.IntegerField(default=0)
@@ -28,7 +27,7 @@ class Sketch(models.Model):
         verbose_name_plural = 'Sketches'
 
     def __unicode__(self):
-        return self.title
+        return "Sketch for \""+ self.wish.content + "\""
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

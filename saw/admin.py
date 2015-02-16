@@ -6,7 +6,7 @@ class WishAdmin(admin.ModelAdmin):
     list_display = ('content', 'wisher', 'created_on')
 
 class SketchAdmin(admin.ModelAdmin):
-    list_display = ('title', 'sketcher', 'likes', 'assigned_on', 'submitted_on')
+    list_display = ('wish', 'image_temp', 'sketcher', 'likes', 'assigned_on', 'submitted_on')
 
 admin.site.register(Wish, WishAdmin)
 admin.site.register(Sketch, SketchAdmin)
