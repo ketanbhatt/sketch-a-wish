@@ -4,6 +4,7 @@ from saw.forms import UserForm, UserProfileForm, WishForm, SketchForm, GetWishFo
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
+from django.contrib import messages
 
 # Create your views here.
 def sketchawish(request):
@@ -42,6 +43,10 @@ def register(request):
 
 
 def user_login(request):
+    if request.user.is_authenticated():
+        messages.info(request, 'You are already logged in!')
+        return HttpResponseRedirect('/sketchawish/')
+
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -73,6 +78,12 @@ def user_logout(request):
 
 @login_required
 def add_wish(request):
+
+    curr_user = UserProfile.objects.get(user = request.user)
+    if curr_user.sketched == False :
+        messages.info(request, 'You need to sketch first')
+        return HttpResponseRedirect('/sketchawish/get_wish/')
+
     if request.method == "POST":
         wish_form = WishForm(request.POST)
 
@@ -93,6 +104,12 @@ def add_wish(request):
 
 @login_required
 def get_wish(request):
+
+    wishes_to_get = Wish.objects.exclude(wisher = request.user).filter(pk__in = Wish.objects.filter(locked=False)[:3].values_list('pk'))
+    if wishes_to_get.count() < 1 :
+        messages.info(request, 'Sorry there are no available wishes at the moment!')
+        return HttpResponseRedirect('/sketchawish/')
+
     if request.method == "POST":
         get_wish_form = GetWishForm(request.POST, request=request)
 
@@ -114,6 +131,12 @@ def get_wish(request):
 
 @login_required
 def add_sketch(request):
+
+    wishes_to_sketch = Wish.objects.filter(sketcher=request.user).filter(sketched=False)
+    if wishes_to_sketch.count() < 1 :
+        messages.info(request, 'You need to select a wish first')
+        return HttpResponseRedirect('/sketchawish/get_wish/')
+
     if request.method == "POST":
 
         needed_pk = Sketch.objects.get(wish = request.POST['wish']).pk

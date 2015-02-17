@@ -3,7 +3,7 @@ A website made for increasing social interaction among the users of the internet
 
 
 ##To Do:
-    + Add different views for getting wish and adding sketch
+    + User redirected to requested page after log in
     + Add user profile
     + Add social auth
     + Hide User Profiles link from admin
