@@ -80,7 +80,7 @@ def user_logout(request):
 def add_wish(request):
 
     curr_user = UserProfile.objects.get(user = request.user)
-    if curr_user.sketched == False :
+    if curr_user.total_sketched < 1 :
         messages.info(request, 'You need to sketch first')
         return HttpResponseRedirect('/sketchawish/get_wish/')
 
@@ -91,6 +91,10 @@ def add_wish(request):
             wish = wish_form.save(commit=False)
             wish.wisher = request.user
             wish.save()
+
+            curr_user = UserProfile.objects.get(user = request.user)
+            curr_user.total_wished+=1
+            curr_user.save()
 
             return sketchawish(request)
 
@@ -147,7 +151,7 @@ def add_sketch(request):
             sketch_form.save()
             Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
             curr_user = UserProfile.objects.get(user = request.user)
-            curr_user.sketched = True
+            curr_user.total_sketched+=1
             curr_user.save()
 
             return sketchawish(request)
