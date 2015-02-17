@@ -94,7 +94,7 @@ def add_wish(request):
 @login_required
 def get_wish(request):
     if request.method == "POST":
-        get_wish_form = GetWishForm(request.POST)
+        get_wish_form = GetWishForm(request.POST, request=request)
 
         if get_wish_form.is_valid():
             to_sketch = get_wish_form.save(commit=False)
@@ -108,7 +108,7 @@ def get_wish(request):
             print get_wish_form.errors
 
     else:
-        get_wish_form = GetWishForm()
+        get_wish_form = GetWishForm(request=request)
 
     return render(request, 'saw/get_wish.html', {'get_wish_form': get_wish_form})
 
