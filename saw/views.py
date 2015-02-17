@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from saw.models import Wish, Sketch
+from saw.models import Wish, Sketch, UserProfile
 from saw.forms import UserForm, UserProfileForm, WishForm, SketchForm, GetWishForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -123,6 +123,9 @@ def add_sketch(request):
         if sketch_form.is_valid():
             sketch_form.save()
             Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
+            curr_user = UserProfile.objects.get(user = request.user)
+            curr_user.sketched = True
+            curr_user.save()
 
             return sketchawish(request)
 
