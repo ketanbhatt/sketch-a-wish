@@ -116,13 +116,13 @@ def get_wish(request):
 def add_sketch(request):
     if request.method == "POST":
 
-        needed_pk = Sketch.wish.field.rel.to.objects.get(pk = request.POST['wish']).pk
+        needed_pk = Sketch.objects.get(wish = request.POST['wish']).pk
 
         sketch_form = SketchForm(request.POST, request=request, instance = Sketch.objects.get(pk=needed_pk))
 
         if sketch_form.is_valid():
-            add_sketch = sketch_form.save(commit=False)
-            add_sketch.save()
+            sketch_form.save()
+            Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
 
             return sketchawish(request)
 

@@ -36,7 +36,7 @@ class SketchForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(SketchForm, self).__init__(*args, **kwargs)
-        self.fields["wish"].queryset = Wish.objects.filter(sketcher=self.request.user)
+        self.fields["wish"].queryset = Wish.objects.filter(sketcher=self.request.user).filter(sketched=False)
 
     class Meta:
         model = Sketch

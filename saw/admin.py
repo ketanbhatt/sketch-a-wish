@@ -3,7 +3,7 @@ from saw.models import Wish, Sketch, UserProfile
 
 # Register your models here.
 class WishAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'content', 'wisher', 'sketcher', 'created_on', 'locked')
+    list_display = ('pk', 'content', 'wisher', 'sketcher', 'created_on', 'locked', 'sketched')
 
 class SketchAdmin(admin.ModelAdmin):
     model = Sketch

@@ -8,6 +8,7 @@ class Wish(models.Model):
     sketcher = models.ForeignKey(User, related_name='sketcher', null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     locked = models.BooleanField(default=False)
+    sketched = models.BooleanField(default=False)
 
     class Meta():
         verbose_name_plural = 'Wishes'
