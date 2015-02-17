@@ -3,10 +3,15 @@ from saw.models import Wish, Sketch, UserProfile
 
 # Register your models here.
 class WishAdmin(admin.ModelAdmin):
-    list_display = ('content', 'wisher', 'created_on')
+    list_display = ('content', 'wisher', 'created_on', 'locked')
 
 class SketchAdmin(admin.ModelAdmin):
-    list_display = ('wish', 'image_temp', 'sketcher', 'likes', 'assigned_on', 'submitted_on')
+    model = Sketch
+    list_display = ('wish', 'image_temp', 'get_wisher', 'sketcher', 'likes', 'assigned_on', 'submitted_on')
+
+    def get_wisher(self, obj):
+        return obj.wish.wisher
+    get_wisher.short_description = "Wisher"
 
 admin.site.register(Wish, WishAdmin)
 admin.site.register(Sketch, SketchAdmin)
