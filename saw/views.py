@@ -100,7 +100,7 @@ def get_wish(request):
             to_sketch = get_wish_form.save(commit=False)
             to_sketch.sketcher = request.user
             to_sketch.save()
-            Wish.objects.filter(pk=request.POST['wish']).update(locked=True)
+            Wish.objects.filter(pk=request.POST['wish']).update(locked=True, sketcher=request.user)
 
             return sketchawish(request)
 
@@ -115,7 +115,7 @@ def get_wish(request):
 @login_required
 def add_sketch(request):
     if request.method == "POST":
-        sketch_form = SketchForm(request.POST, wish_qs=Sketch.objects.filter(sketcher=request.user))
+        sketch_form = SketchForm(request.POST, request=request)
 
         if sketch_form.is_valid():
             add_sketch = sketch_form.save(commit=False)
@@ -127,7 +127,7 @@ def add_sketch(request):
             print sketch_form.errors
 
     else:
-        sketch_form = SketchForm(wish_qs=Sketch.objects.filter(sketcher=request.user))
+        sketch_form = SketchForm(request=request)
 
 
     return render(request, 'saw/add_sketch.html', {'sketch_form': sketch_form})

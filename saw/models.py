@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Wish(models.Model):
     content = models.CharField(max_length=500)
-    wisher = models.ForeignKey(User)
+    wisher = models.ForeignKey(User, related_name='wisher')
+    sketcher = models.ForeignKey(User, related_name='sketcher', null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     locked = models.BooleanField(default=False)
 
