@@ -80,7 +80,7 @@ def user_logout(request):
 def add_wish(request):
 
     curr_user = UserProfile.objects.get(user = request.user)
-    if curr_user.total_sketched < 1 :
+    if curr_user.total_wished > curr_user.total_sketched :
         messages.info(request, 'You need to sketch first')
         return HttpResponseRedirect('/sketchawish/get_wish/')
 
