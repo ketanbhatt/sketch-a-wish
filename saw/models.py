@@ -18,7 +18,6 @@ class Wish(models.Model):
 
 class Sketch(models.Model):
     wish = models.ForeignKey(Wish)
-    sketcher = models.ForeignKey(User)
     image_temp = models.CharField(max_length=128)
     likes = models.IntegerField(default=0)
     assigned_on = models.DateTimeField(auto_now_add=True)

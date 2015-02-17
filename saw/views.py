@@ -115,7 +115,10 @@ def get_wish(request):
 @login_required
 def add_sketch(request):
     if request.method == "POST":
-        sketch_form = SketchForm(request.POST, request=request)
+
+        needed_pk = Sketch.wish.field.rel.to.objects.get(pk = request.POST['wish']).pk
+
+        sketch_form = SketchForm(request.POST, request=request, instance = Sketch.objects.get(pk=needed_pk))
 
         if sketch_form.is_valid():
             add_sketch = sketch_form.save(commit=False)
