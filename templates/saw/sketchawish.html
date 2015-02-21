@@ -2,16 +2,12 @@
 {% block page_body %}
     <h1>Sketch A Wish</h1>
     <h2>Our Awesome Tagline</h3>
-    <h3>Bla Bla Bla</h3>
     {% if user.is_authenticated %}
         <a href="{% url 'logout' %}">Log Out</a>
         <br />
-        <a href="{% url 'add_wish' %}">Make a wish</a>
-        <br />
-        <a href="{% url 'get_wish' %}">Get a wish to sketch</a>
-        <br />
-        <a href="{% url 'add_sketch' %}">Submit sketch</a>
+
     {% else %}
+        <h3>Bla Bla Bla</h3>
         <h4><a href="{% url 'get_started' %}">Get Started</a></h4>
     {% endif %}
 {% endblock page_body %}

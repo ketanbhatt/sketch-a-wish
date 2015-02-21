@@ -36,6 +36,7 @@ class UserProfile(models.Model):
     country = models.CharField(max_length=128, default="Somewhere in the World" )
     total_sketched = models.IntegerField(default=0)
     total_wished = models.IntegerField(default=0)
+    progress = models.IntegerField(default=1)
 
     def __unicode__(self):
         return self.user.username

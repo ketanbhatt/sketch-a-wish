@@ -22,7 +22,7 @@ class SketchAdmin(admin.ModelAdmin):
 
 class UserProfileAdmin(admin.ModelAdmin):
     model = UserProfile
-    list_display = ('user', 'get_email', 'country', 'total_sketched', 'total_wished')
+    list_display = ('user', 'get_email', 'country', 'progress', 'total_sketched', 'total_wished')
 
     def get_email(self, obj):
         return obj.user.email

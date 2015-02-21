@@ -1,0 +1,152 @@
+{% extends "saw/base.html" %}
+{% block page_body %}
+        <a href="{% url 'logout' %}">Log Out</a>
+        <br /><br />
+        {% if progress == 1 %}
+                        <div>
+                            <form id="wish_form" method="post" action="{% url 'start' %}">
+                                {% csrf_token %}
+
+                                {% for field in wish_form %}
+                                    {{ field.errors }}
+                                    {{ field.help_text }}
+                                    {{ field }}
+                                {% endfor %}
+
+                                <input type="submit" name="submit_add_wish" value="Make my wish!" />
+                            </form>
+                        </div>
+
+                        <br /><br />
+
+                        <div style="visibility:hidden">
+                        <form id="get_wish_form" method="post" action="{% url 'start' %}">
+                            {% csrf_token %}
+
+                            {% for field in get_wish_form %}
+                                {{ field.errors }}
+                                {{ field.help_text }}
+                                {{ field }}
+                                <br />
+                            {% endfor %}
+
+                            <input type="submit" name="submit_get_wish" value="Will fulfil this wish!" />
+                        </form>
+                        </div>
+
+                        <br /><br />
+
+                        <div style="visibility:hidden">
+                        <form id="sketch_form" method="post" action="{% url 'start' %}">
+                            {% csrf_token %}
+
+                            {% for field in sketch_form %}
+                                {{ field.errors }}
+                                {{ field.help_text }}
+                                {{ field }}
+                                <br />
+                            {% endfor %}
+
+                            <input type="submit" name="submit_add_sketch" value="Here is the Sketch!" />
+                        </form>
+                        </div>
+
+        {% elif progress == 2 %}
+                        <div style="visibility:hidden">
+                            <form id="wish_form" method="post" action="{% url 'start' %}">
+                                {% csrf_token %}
+
+                                {% for field in wish_form %}
+                                    {{ field.errors }}
+                                    {{ field.help_text }}
+                                    {{ field }}
+                                {% endfor %}
+
+                                <input type="submit" name="submit_add_wish" value="Make my wish!" />
+                            </form>
+                        </div>
+
+                        <br /><br />
+
+                        <div>
+                        <form id="get_wish_form" method="post" action="{% url 'start' %}">
+                            {% csrf_token %}
+
+                            {% for field in get_wish_form %}
+                                {{ field.errors }}
+                                {{ field.help_text }}
+                                {{ field }}
+                                <br />
+                            {% endfor %}
+
+                            <input type="submit" name="submit_get_wish" value="Will fulfil this wish!" />
+                        </form>
+                        </div>
+
+                        <br /><br />
+
+                        <div style="visibility:hidden">
+                        <form id="sketch_form" method="post" action="{% url 'start' %}">
+                            {% csrf_token %}
+
+                            {% for field in sketch_form %}
+                                {{ field.errors }}
+                                {{ field.help_text }}
+                                {{ field }}
+                                <br />
+                            {% endfor %}
+
+                            <input type="submit" name="submit_add_sketch" value="Here is the Sketch!" />
+                        </form>
+                        </div>
+
+        {% elif progress == 3 %}
+                        <div style="visibility:hidden">
+                            <form id="wish_form" method="post" action="{% url 'start' %}">
+                                {% csrf_token %}
+
+                                {% for field in wish_form %}
+                                    {{ field.errors }}
+                                    {{ field.help_text }}
+                                    {{ field }}
+                                {% endfor %}
+
+                                <input type="submit" name="submit_add_wish" value="Make my wish!" />
+                            </form>
+                        </div>
+
+                        <br /><br />
+
+                        <div style="visibility:hidden">
+                        <form id="get_wish_form" method="post" action="{% url 'start' %}">
+                            {% csrf_token %}
+
+                            {% for field in get_wish_form %}
+                                {{ field.errors }}
+                                {{ field.help_text }}
+                                {{ field }}
+                                <br />
+                            {% endfor %}
+
+                            <input type="submit" name="submit_get_wish" value="Will fulfil this wish!" />
+                        </form>
+                        </div>
+
+                        <br /><br />
+
+                        <div>
+                        <form id="sketch_form" method="post" action="{% url 'start' %}">
+                            {% csrf_token %}
+
+                            {% for field in sketch_form %}
+                                {{ field.errors }}
+                                {{ field.help_text }}
+                                {{ field }}
+                                <br />
+                            {% endfor %}
+
+                            <input type="submit" name="submit_add_sketch" value="Here is the Sketch!" />
+                        </form>
+                        </div>
+        {% endif %}
+{% endblock page_body %}
