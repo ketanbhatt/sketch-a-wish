@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sketch A Wish</title>
-</head>
-<body>
-
-    <form id="sketch_form" method="post" action="/sketchawish/add_sketch/">
+{% extends "saw/base.html" %}
+{% block page_body %}
+    <form id="sketch_form" method="post" action="{% url 'add_sketch' %}">
         {% csrf_token %}
 
         {% for field in sketch_form %}
@@ -17,6 +12,4 @@
 
         <input type="submit" name="submit" value="Here is the Sketch!" />
     </form>
-
-</body>
-</html>
+{% endblock page_body %}

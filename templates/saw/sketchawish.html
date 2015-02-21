@@ -1,31 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sketch A Wish</title>
-</head>
-<body>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% extends "saw/base.html" %}
+{% block page_body %}
     <h1>Sketch A Wish</h1>
-    <h3>Our Awesome Tagline</h3>
+    <h2>Our Awesome Tagline</h3>
+    <h3>Bla Bla Bla</h3>
     {% if user.is_authenticated %}
-        <h1>Hello {{ user.username }}!</h1>
-        <a href="/sketchawish/logout/">Log Out</a>
-    {% else %}
-        <h1>Hello  <a href="/sketchawish/login/">Login</a></h1>
+        <a href="{% url 'logout' %}">Log Out</a>
         <br />
-        <a href="/sketchawish/register/">Or Register Here!</a>
+        <a href="{% url 'add_wish' %}">Make a wish</a>
+        <br />
+        <a href="{% url 'get_wish' %}">Get a wish to sketch</a>
+        <br />
+        <a href="{% url 'add_sketch' %}">Submit sketch</a>
+    {% else %}
+        <h4><a href="{% url 'get_started' %}">Get Started</a></h4>
     {% endif %}
-    <br />
-    <a href="/sketchawish/add_wish/">Make a wish</a>
-    <br />
-     <a href="/sketchawish/get_wish/">Get a wish to sketch</a>
-     <br />
-    <a href="/sketchawish/add_sketch/">Submit sketch</a>
-</body>
-</html>
+{% endblock page_body %}

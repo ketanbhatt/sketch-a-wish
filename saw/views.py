@@ -10,64 +10,60 @@ from django.contrib import messages
 def sketchawish(request):
     return render(request, 'saw/sketchawish.html', {})
 
-def register(request):
-    registered = False
+
+def get_started(request):
 
     if request.method == 'POST':
-        user_form = UserForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
+        which_submit = request.POST
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user = user_form.save()
+        if 'submit_register' in which_submit:
+            user_form = UserForm(data=request.POST)
+            profile_form = UserProfileForm(data=request.POST)
 
-            user.set_password(user.password)
-            user.save()
+            if user_form.is_valid() and profile_form.is_valid():
+                user = user_form.save()
+                registering_username = user.username
+                registering_password = user.password
 
-            profile = profile_form.save(commit=False)
-            profile.user = user
+                user.set_password(user.password)
+                user.save()
 
-            profile.save()
+                profile = profile_form.save(commit=False)
+                profile.user = user
 
-            registered = True
+                profile.save()
+                user = authenticate(username=registering_username, password=registering_password)
+                login(request, user)
+                return HttpResponseRedirect('/sketchawish')
+
+            else:
+                print user_form.errors, profile_form.errors
 
         else:
-            print user_form.errors, profile_form.errors
+            username = request.POST['username']
+            password = request.POST['password']
+
+            user = authenticate(username=username, password=password)
+
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/sketchawish/')
+
+                else:
+                    return HttpResponse("Your account is deactivated")
+
+            else:
+                print "Invalid login details: {0}, {1}".format(username, password)
+                return HttpResponse("Invalid login details supplied.")
 
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
 
     return render(request,
-                  'saw/register.html',
-                  {'user_form' : user_form, 'profile_form' : profile_form, 'registered' : registered})
-
-
-def user_login(request):
-    if request.user.is_authenticated():
-        messages.info(request, 'You are already logged in!')
-        return HttpResponseRedirect('/sketchawish/')
-
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = authenticate(username=username, password=password)
-
-        if user:
-            if user.is_active:
-                login(request, user)
-                return HttpResponseRedirect('/sketchawish/')
-
-            else:
-                return HttpResponse("Your account is deactivated")
-
-        else:
-            print "Invalid login details: {0}, {1}".format(username, password)
-            return HttpResponse("Invalid login details supplied.")
-
-    else:
-        return render(request, 'saw/login.html', {})
-
+                  'saw/get_started.html',
+                  {'user_form' : user_form, 'profile_form' : profile_form})
 
 @login_required
 def user_logout(request):
@@ -80,7 +76,7 @@ def user_logout(request):
 def add_wish(request):
 
     curr_user = UserProfile.objects.get(user = request.user)
-    if curr_user.total_wished > curr_user.total_sketched :
+    if curr_user.total_wished >= curr_user.total_sketched :
         messages.info(request, 'You need to sketch first')
         return HttpResponseRedirect('/sketchawish/get_wish/')
 

@@ -3,8 +3,7 @@ from saw import views
 
 urlpatterns = patterns('',
                        url(r'^$', views.sketchawish, name='sketchawish'),
-                       url(r'^register/$', views.register, name='register'),
-                       url(r'^login/$', views.user_login, name='login'),
+                       url(r'^get_started/$', views.get_started, name='get_started'),
                        url(r'^logout/$', views.user_logout, name='logout'),
                        url(r'^add_wish/$', views.add_wish, name='add_wish'),
                        url(r'^get_wish/$', views.get_wish, name='get_wish'),

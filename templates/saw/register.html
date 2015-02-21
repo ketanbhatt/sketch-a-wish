@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sketch A Wish</title>
-</head>
-<body>
+{% extends "saw/base.html" %}
+{% block page_body %}
     <h1>Register</h1>
     {% if registered %}
         <strong>Thank You for registering!</strong>
-        <a href="/sketchawish/">Return to the homepage</a>
+        <a href="{% url 'sketchawish' %}">Return to the homepage</a>
     {% else %}
         <strong>Register here:</strong><br />
 
-        <form id="user_form" method="post" action="/sketchawish/register/">
+        <form id="user_form" method="post" action="{% url 'register' %}">
             {% csrf_token %}
 
             {{ user_form.as_p }}
@@ -20,5 +16,4 @@
             <input type="submit" name="submit" value="Register" />
         </form>
     {% endif %}
-</body>
-</html>
+{% endblock page_body %}
