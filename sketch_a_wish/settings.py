@@ -22,9 +22,9 @@ LOGIN_URL = '/sketchawish/get_started/'
 SECRET_KEY = 'gk7s635#0zt$yq43q^4!^w7&6h@46to2x$l*x7f+s_$1hpw%xz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 TEMPLATE_DIRS = [TEMPLATE_PATH,]
 
 ALLOWED_HOSTS = []
@@ -84,8 +84,22 @@ USE_L10N = True
 
 USE_TZ = True
 
+if not os.environ.get("HOME") == "/home/ketanbhatt":
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
