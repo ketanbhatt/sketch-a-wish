@@ -32,8 +32,7 @@ class Sketch(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-
-    country = models.CharField(max_length=128, default="Somewhere in the World" )
+    country = models.CharField(max_length=128)
     total_sketched = models.IntegerField(default=0)
     total_wished = models.IntegerField(default=0)
     progress = models.IntegerField(default=1)

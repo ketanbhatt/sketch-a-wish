@@ -1,24 +1,11 @@
 {% extends "saw/base.html" %}
 {% block page_body %}
-    <h2>Register</h2>
-        <form id="user_form" method="post" action="{% url 'get_started' %}">
-            {% csrf_token %}
-
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
-
-            <input type="submit" name="submit_register" value="Register" />
-        </form>
-
-    <h1>OR</h1>
-
-    <h2>Login</h2>
-    <form id="login_form" method="post" action="{% url 'get_started' %}">
-        {% csrf_token %}
-        Username: <input type="text" name="username" value="" size="50" />
-        <br />
-        Password: <input type="password" name="password" value="" size="50" />
-        <br />
-        <input type="submit" name="submit_login" value="submit" />
-    </form>
+    <ul>
+        <li>
+       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+     </li>
+     <li>
+       <a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
+     </li>
+    </ul>
 {% endblock page_body %}
