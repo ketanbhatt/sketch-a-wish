@@ -122,15 +122,15 @@ USE_TZ = True
 
 if not os.environ.get("HOME") == "/home/ketanbhatt":
   #Settings for Facebook Auth
-  SOCIAL_AUTH_FACEBOOK_KEY = ENV['FACEBOOK_KEY']
-  SOCIAL_AUTH_FACEBOOK_SECRET = ENV['FACEBOOK_SECRET']
+  SOCIAL_AUTH_FACEBOOK_KEY = os.environ['FACEBOOK_KEY']
+  SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['FACEBOOK_SECRET']
 
   #Settings for Google Auth
-  SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ENV['GOOGLE_KEY']
-  SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ENV['GOOGLE_SECRET']
+  SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['GOOGLE_KEY']
+  SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['GOOGLE_SECRET']
 
   # SECURITY WARNING: keep the secret key used in production secret!
-  SECRET_KEY = ENV['SECRET']
+  SECRET_KEY = os.environ['SECRET']
 
   # Parse database configuration from $DATABASE_URL
   import dj_database_url
