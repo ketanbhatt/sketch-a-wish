@@ -1,6 +1,7 @@
 from saw.models import UserProfile
 from requests import request, HTTPError
 from django.core.files.base import ContentFile
+from urllib2 import urlopen
 
 def save_user_profile(backend, user, response, is_new=False, *args, **kwargs):
     if is_new:
@@ -18,13 +19,17 @@ def save_user_profile(backend, user, response, is_new=False, *args, **kwargs):
                 profile.save()
 
         elif backend.name == 'google-oauth2':
-            url = response["image"]
+            url = response["image"]['url'] + '0'
+            avatar = urlopen(url)
             UserProfile.objects.get_or_create(user=user)
+            profile = UserProfile.objects.get(user=user)
+            profile.profile_photo.save('{0}_social.jpg'.format(user.email), ContentFile(avatar.read()))
+            profile.save()
 
     else:
         if backend.name == 'facebook':
-            UserProfile.objects.get_or_create(user=user)
+            UserProfile.objects.get(user=user)
 
         elif backend.name == 'google-oauth2':
-            UserProfile.objects.get_or_create(user=user)
+            UserProfile.objects.get(user=user)
 

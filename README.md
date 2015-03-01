@@ -4,8 +4,7 @@ A website made for increasing social interaction among the users of the internet
 
 ##To Do:
     + Take care of location of users
-    + Enable photo uploading to django
-    + Enable user profile pictures
+    + Add Instagram Auth
     + Replace dummy sketch form field with image uploader
     + Enable Sharing on Facebook, google, twitter
     + Add user profile
