@@ -17,58 +17,8 @@ def get_started(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('start'))
 
-    if request.method == 'POST':
-
-        which_submit = request.POST
-
-        if 'submit_register' in which_submit:
-            user_form = UserForm(data=request.POST)
-            profile_form = UserProfileForm(data=request.POST)
-
-            if user_form.is_valid() and profile_form.is_valid():
-                user = user_form.save()
-                registering_username = user.username
-                registering_password = user.password
-
-                user.set_password(user.password)
-                user.save()
-
-                profile = profile_form.save(commit=False)
-                profile.user = user
-
-                profile.save()
-                user = authenticate(username=registering_username, password=registering_password)
-                login(request, user)
-                return HttpResponseRedirect(reverse('start'))
-
-            else:
-                print user_form.errors, profile_form.errors
-
-        elif 'submit_login' in which_submit:
-            username = request.POST['username']
-            password = request.POST['password']
-
-            user = authenticate(username=username, password=password)
-
-            if user:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponseRedirect(reverse('start'))
-
-                else:
-                    return HttpResponse("Your account is deactivated")
-
-            else:
-                print "Invalid login details: {0}, {1}".format(username, password)
-                return HttpResponse("Invalid login details supplied.")
-
-    else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
-
     return render(request,
-                  'saw/get_started.html',
-                  {'user_form' : user_form, 'profile_form' : profile_form})
+                  'saw/get_started.html', {})
 
 @login_required
 def user_logout(request):
