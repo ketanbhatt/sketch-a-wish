@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from saw.models import Wish, Sketch, UserProfile
-from saw.forms import UserForm, UserProfileForm, WishForm, SketchForm, GetWishForm
+from saw.forms import WishForm, SketchForm, GetWishForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
