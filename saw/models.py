@@ -32,6 +32,7 @@ class Sketch(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
+    profile_photo = models.ImageField(upload_to='profiles/', blank=True)
     country = models.CharField(max_length=128)
     total_sketched = models.IntegerField(default=0)
     total_wished = models.IntegerField(default=0)
