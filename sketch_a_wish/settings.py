@@ -85,6 +85,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
     'social.pipeline.user.create_user',
     'utils.save_user_profile',  # <--- set the path to the function
     'social.pipeline.social_auth.associate_user',
