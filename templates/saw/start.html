@@ -102,7 +102,7 @@
 
         {% elif progress == 3 %}
                         <div style="visibility:hidden">
-                            <form id="wish_form" method="post" action="{% url 'start' %}">
+                            <form id="wish_form" method="post" action="{% url 'start' %}" enctype="multipart/form-data">
                                 {% csrf_token %}
 
                                 {% for field in wish_form %}
@@ -118,7 +118,7 @@
                         <br /><br />
 
                         <div style="visibility:hidden">
-                        <form id="get_wish_form" method="post" action="{% url 'start' %}">
+                        <form id="get_wish_form" method="post" action="{% url 'start' %}" enctype="multipart/form-data">
                             {% csrf_token %}
 
                             {% for field in get_wish_form %}
@@ -135,15 +135,10 @@
                         <br /><br />
 
                         <div>
-                        <form id="sketch_form" method="post" action="{% url 'start' %}">
+                        <form id="sketch_form" method="post" action="{% url 'start' %}" enctype="multipart/form-data">
                             {% csrf_token %}
 
-                            {% for field in sketch_form %}
-                                {{ field.errors }}
-                                {{ field.help_text }}
-                                {{ field }}
-                                <br />
-                            {% endfor %}
+                            {{ sketch_form.as_p }}
 
                             <input type="submit" name="submit_add_sketch" value="Here is the Sketch!" />
                         </form>

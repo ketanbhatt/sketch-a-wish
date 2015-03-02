@@ -9,7 +9,7 @@ class WishAdmin(admin.ModelAdmin):
 
 class SketchAdmin(admin.ModelAdmin):
     model = Sketch
-    list_display = ('pk', 'image_temp', 'wish', 'get_wisher', 'get_sketcher', 'likes', 'assigned_on', 'submitted_on')
+    list_display = ('pk', 'sketch_image', 'wish', 'get_wisher', 'get_sketcher', 'likes', 'assigned_on', 'submitted_on')
 
     def get_wisher(self, obj):
         return obj.wish.wisher

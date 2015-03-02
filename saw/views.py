@@ -78,14 +78,16 @@ def start(request):
             sketch_form = SketchForm(request.POST, request=request, instance = Sketch.objects.get(pk=needed_pk))
 
             if sketch_form.is_valid():
-                sketch_form.save()
-                Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
-                curr_user = UserProfile.objects.get(user = request.user)
-                curr_user.total_sketched+=1
-                curr_user.progress = 1
-                curr_user.save()
-
-                return HttpResponseRedirect(reverse('sketchawish'))
+                sketch = sketch_form.save(commit=False)
+                if 'sketch_image' in request.FILES:
+                    sketch.sketch_image.save('{0}_sketch.jpg'.format(sketch.pk), request.FILES['sketch_image'])
+                    sketch.save()
+                    Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
+                    curr_user = UserProfile.objects.get(user = request.user)
+                    curr_user.total_sketched+=1
+                    curr_user.progress = 1
+                    curr_user.save()
+                    return HttpResponseRedirect(reverse('sketchawish'))
 
             else:
                 print sketch_form.errors

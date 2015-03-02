@@ -19,7 +19,7 @@ class Wish(models.Model):
 
 class Sketch(models.Model):
     wish = models.ForeignKey(Wish)
-    image_temp = models.CharField(max_length=128)
+    sketch_image = models.ImageField(upload_to='sketches/', blank=True)
     likes = models.IntegerField(default=0)
     assigned_on = models.DateTimeField(auto_now_add=True)
     submitted_on = models.DateTimeField(auto_now=True)

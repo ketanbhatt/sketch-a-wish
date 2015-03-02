@@ -24,7 +24,6 @@ class GetWishForm(forms.ModelForm):
 
 class SketchForm(forms.ModelForm):
     wish = forms.ModelChoiceField(queryset= '' , initial=0)
-    image_temp = forms.CharField(help_text='Imagine this is an upload button for image, write anything')
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
@@ -33,4 +32,4 @@ class SketchForm(forms.ModelForm):
 
     class Meta:
         model = Sketch
-        fields = ('wish', 'image_temp')
+        fields = ('wish', 'sketch_image')
