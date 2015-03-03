@@ -1,0 +1,9 @@
+{% extends "saw/base.html" %}
+{% block page_body %}
+<a href="{% url 'start' %}">Get to work!</a><br />
+    <img src="/media/{{ user.profile_photo }}">
+    {{ user.user.first_name }} {{ user.user.last_name }}<br />
+    {{ user.country }}<br />
+    No. of sketches: {{ user.total_sketched }}<br />
+    No. of Wishes: {{ user.total_wished }}
+{% endblock page_body %}

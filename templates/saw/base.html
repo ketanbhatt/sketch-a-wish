@@ -11,6 +11,9 @@
     {% endfor %}
 </ul>
 {% endif %}
+{% if user.is_authenticated %}
+        <a href="{% url 'profile' %}">Profile</a>
+{% endif %}
 {% block page_body %}
     We get your wishes fulfilled
 {% endblock page_body %}

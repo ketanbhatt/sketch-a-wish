@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response, render
+from django.template import RequestContext
 from saw.models import Wish, Sketch, UserProfile
 from saw.forms import WishForm, SketchForm, GetWishForm
 from django.contrib.auth import authenticate, login, logout
@@ -109,3 +110,13 @@ def start(request):
         sketch_form = SketchForm(request=request)
 
     return render(request, 'saw/start.html', {'wish_form': wish_form, 'get_wish_form': get_wish_form, 'sketch_form': sketch_form, 'progress': progress})
+
+
+
+@login_required
+def user_profile(request):
+    context = RequestContext(request)
+    curr_user = UserProfile.objects.get(user = request.user)
+    context_dict = {}
+    context_dict['user'] = curr_user
+    return render_to_response('saw/profile.html', context_dict, context)
