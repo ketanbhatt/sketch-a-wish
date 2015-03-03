@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 
+from .utils import *
 
 # Create your views here.
 def sketchawish(request):
@@ -48,11 +50,10 @@ def start(request):
                 curr_user.total_wished+=1
                 curr_user.progress = 2
                 curr_user.save()
-
-                return HttpResponseRedirect(reverse('start'))
-
             else:
-                print wish_form.errors
+                messages.error(request, 'You don\'t have anything to wish?', fail_silently=True)
+
+            return HttpResponseRedirect(reverse('start'))
 
         elif 'submit_get_wish' in which_submit:
             get_wish_form = GetWishForm(request.POST, request=request)
@@ -80,14 +81,24 @@ def start(request):
             if sketch_form.is_valid():
                 sketch = sketch_form.save(commit=False)
                 if 'sketch_image' in request.FILES:
-                    sketch.sketch_image.save('{0}_sketch.jpg'.format(sketch.pk), request.FILES['sketch_image'])
-                    sketch.save()
-                    Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
-                    curr_user = UserProfile.objects.get(user = request.user)
-                    curr_user.total_sketched+=1
-                    curr_user.progress = 1
-                    curr_user.save()
-                    return HttpResponseRedirect(reverse('sketchawish'))
+                    fobject = request.FILES['sketch_image']
+
+                    if valid_image_mimetype(fobject):
+                        sketch.sketch_image.save('{0}_sketch.jpg'.format(sketch.pk), request.FILES['sketch_image'])
+                        sketch.save()
+                        Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
+                        curr_user = UserProfile.objects.get(user = request.user)
+                        curr_user.total_sketched+=1
+                        curr_user.progress = 1
+                        curr_user.save()
+                        return HttpResponseRedirect(reverse('sketchawish'))
+                    else:
+                        messages.error(request, 'Wrong filetype uploaded', fail_silently=True)
+                        return HttpResponseRedirect(reverse('start'))
+
+                else:
+                    messages.error(request, 'Come on! Where is the sketch?', fail_silently=True)
+                    return HttpResponseRedirect(reverse('start'))
 
             else:
                 print sketch_form.errors
