@@ -1,13 +1,13 @@
+from __future__ import absolute_import
 from django.shortcuts import render_to_response, render
 from django.template import RequestContext
-from saw.models import Wish, Sketch, UserProfile
-from saw.forms import WishForm, SketchForm, GetWishForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-
+from .models import Wish, Sketch, UserProfile
+from .forms import WishForm, SketchForm, GetWishForm
 from .utils import *
 
 

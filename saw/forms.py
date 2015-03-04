@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 from django import forms
-from saw.models import Wish, Sketch
+from .models import Wish, Sketch
 
 
 class WishForm(forms.ModelForm):

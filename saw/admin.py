@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 from django.contrib import admin
-from saw.models import Wish, Sketch, UserProfile
+from .models import Wish, Sketch, UserProfile
 
 
 class WishAdmin(admin.ModelAdmin):

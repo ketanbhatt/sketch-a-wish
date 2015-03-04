@@ -1,7 +1,7 @@
-from saw.models import UserProfile
+from urllib2 import urlopen
 from requests import request, HTTPError
 from django.core.files.base import ContentFile
-from urllib2 import urlopen
+from saw.models import UserProfile
 
 
 def save_user_profile(backend, user, response, is_new=False, *args, **kwargs):
