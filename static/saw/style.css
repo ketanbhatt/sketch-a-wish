@@ -1,0 +1,14 @@
+body {
+    background-color: #C5EFF7;
+    color: #1F3A93;
+    line-height: 40px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: orange;
+}

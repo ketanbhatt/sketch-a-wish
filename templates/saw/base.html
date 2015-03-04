@@ -1,7 +1,9 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>{% block page_title %}Sketch A Wish{% endblock page_title %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'saw/style.css' %}">
 </head>
 <body>
 {% if messages %}
