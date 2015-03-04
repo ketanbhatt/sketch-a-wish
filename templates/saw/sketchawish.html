@@ -4,9 +4,6 @@
     <h2>Our Really Cheeky Tagline</h3>
     {% if user.is_authenticated %}
         <a href="{% url 'start' %}">START!</a>
-        <br /><br /><br />
-        <a href="{% url 'logout' %}">Log Out</a>
-        <br />
 
     {% else %}
         <h3>Bla Bla Bla</h3>

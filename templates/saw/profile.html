@@ -1,9 +1,30 @@
 {% extends "saw/base.html" %}
+{% block page_header %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Log Out</a>
+        <br />
+    {% endif %}
+{% endblock page_header %}
+
 {% block page_body %}
 <a href="{% url 'start' %}">Get to work!</a><br />
-    <img src="/media/{{ user.profile_photo }}">
-    {{ user.user.first_name }} {{ user.user.last_name }}<br />
-    {{ user.country }}<br />
-    No. of sketches: {{ user.total_sketched }}<br />
-    No. of Wishes: {{ user.total_wished }}
+    <img src="/media/{{ curr_user.profile_photo }}" height=150px width=120px>
+    {{ curr_user.user.first_name }} {{ curr_user.user.last_name }}<br />
+    {{ curr_user.country }}<br />
+    No. of sketches: {{ curr_user.total_sketched }}<br />
+    No. of Wishes: {{ curr_user.total_wished }}<br />
+    <br /><br /><br />
+    Sketches:
+    <ul>
+        {% for sketch in user_sketches %}
+            <li><img src="/media/{{ sketch.sketch_image }}" height=500px width=700px></li>
+        {% endfor %}
+    </ul>
+    <br /><br /><br />
+    Wishes:
+    <ul>
+        {% for wish in user_wishes %}
+            <li>{{ wish.content }}</li>
+        {% endfor %}
+    </ul>
 {% endblock page_body %}

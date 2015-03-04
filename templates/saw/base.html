@@ -11,11 +11,18 @@
     {% endfor %}
 </ul>
 {% endif %}
-{% if user.is_authenticated %}
+{% block page_header %}
+    {% if user.is_authenticated %}
         <a href="{% url 'profile' %}">Profile</a>
-{% endif %}
+        <br />
+        <a href="{% url 'logout' %}">Log Out</a>
+        <br />
+    {% endif %}
+{% endblock page_header %}
+
 {% block page_body %}
     We get your wishes fulfilled
 {% endblock page_body %}
+
 </body>
 </html>

@@ -3,8 +3,10 @@ A website made for increasing social interaction among the users of the internet
 
 
 ##To Do:
+    + Enable static files in development server
+    + Enable Static files on production server
+    + Enable temperory wishes
+    + Handle media on production server
     + Take care of location of users
     + Enable Sharing on Facebook, google, twitter, instagram
-    + Add user profile
-    + Hide User Profiles link from admin
     + Show User Profile information inside Users link only

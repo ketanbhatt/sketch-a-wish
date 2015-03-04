@@ -1,7 +1,5 @@
 {% extends "saw/base.html" %}
 {% block page_body %}
-        <a href="{% url 'logout' %}">Log Out</a>
-        <br /><br />
         {% if progress == 1 %}
                         <div>
                             <form id="wish_form" method="post" action="{% url 'start' %}">

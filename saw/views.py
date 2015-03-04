@@ -85,6 +85,8 @@ def start(request):
 
                     if valid_image_mimetype(fobject):
                         sketch.sketch_image.save('{0}_sketch.jpg'.format(sketch.pk), request.FILES['sketch_image'])
+                        sketch.wisher = Wish.objects.get(pk=request.POST['wish']).wisher
+                        sketch.sketcher = request.user
                         sketch.save()
                         Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
                         curr_user = UserProfile.objects.get(user=request.user)
@@ -113,8 +115,8 @@ def start(request):
 
 @login_required
 def user_profile(request):
-    context = RequestContext(request)
     curr_user = UserProfile.objects.get(user=request.user)
-    context_dict = {}
-    context_dict['user'] = curr_user
-    return render_to_response('saw/profile.html', context_dict, context)
+    curr_user_sketches = Sketch.objects.filter(sketcher=request.user)
+    curr_user_wishes = Wish.objects.filter(wisher=request.user)
+    dict_for_template = {'curr_user': curr_user, 'user_sketches': curr_user_sketches, 'user_wishes': curr_user_wishes}
+    return render(request, 'saw/profile.html', dict_for_template)
