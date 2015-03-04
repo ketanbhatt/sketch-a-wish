@@ -9,13 +9,13 @@ from django.contrib.auth.models import User
 
 kb = User.objects.get()
 
+
 def populate():
     add_wish(content="wish 1", wisher=kb)
-    add_wish(content="wish 2", wisher=kb)
-    add_wish(content="wish 3", wisher=kb)
+
 
 def add_wish(content, wisher):
-    c = Wish.objects.get_or_create(content = content, wisher = wisher)
+    Wish.objects.get_or_create(content=content, wisher=wisher, is_live=True)
 
 # Start execution here!
 if __name__ == '__main__':

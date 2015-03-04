@@ -4,7 +4,7 @@ from .models import Wish, Sketch, UserProfile
 
 
 class WishAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'content', 'wisher', 'sketcher', 'created_on', 'locked', 'sketched')
+    list_display = ('pk', 'content', 'wisher', 'sketcher', 'created_on', 'is_live', 'locked', 'sketched')
 
 
 class SketchAdmin(admin.ModelAdmin):

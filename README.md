@@ -3,8 +3,7 @@ A website made for increasing social interaction among the users of the internet
 
 
 ##To Do:
-    + Enable static files in development server
-    + Enable temperory wishes
+    + Make get_wish form show random wishes
     + Enable Static files on production server
     + Handle media on production server
     + Take care of location of users

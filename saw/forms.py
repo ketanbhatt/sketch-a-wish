@@ -17,7 +17,7 @@ class GetWishForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(GetWishForm, self).__init__(*args, **kwargs)
-        self.fields["wish"].queryset = Wish.objects.exclude(wisher=self.request.user).filter(pk__in=Wish.objects.filter(locked=False)[:3].values_list('pk'))
+        self.fields["wish"].queryset = Wish.objects.exclude(wisher=self.request.user).filter(pk__in=Wish.objects.filter(is_live=True, locked=False)[:3].values_list('pk'))
 
     class Meta:
         model = Sketch
@@ -30,7 +30,7 @@ class SketchForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(SketchForm, self).__init__(*args, **kwargs)
-        self.fields["wish"].queryset = Wish.objects.filter(sketcher=self.request.user).filter(sketched=False)
+        self.fields["wish"].queryset = Wish.objects.filter(sketcher=self.request.user, sketched=False)
 
     class Meta:
         model = Sketch

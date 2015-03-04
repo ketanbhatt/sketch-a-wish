@@ -21,6 +21,7 @@ class Wish(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     locked = models.BooleanField(default=False)
     sketched = models.BooleanField(default=False)
+    is_live = models.BooleanField(default=False)
 
     class Meta():
         verbose_name_plural = 'Wishes'

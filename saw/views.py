@@ -88,7 +88,10 @@ def start(request):
                         sketch.wisher = Wish.objects.get(pk=request.POST['wish']).wisher
                         sketch.sketcher = request.user
                         sketch.save()
+
                         Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
+                        Wish.objects.filter(wisher=request.user, is_live=False).update(is_live=True)
+
                         curr_user = UserProfile.objects.get(user=request.user)
                         curr_user.total_sketched += 1
                         curr_user.progress = 1
