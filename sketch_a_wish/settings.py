@@ -22,14 +22,14 @@ SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email',]
-SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/calendar',]
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', ]
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://www.googleapis.com/auth/calendar', ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-TEMPLATE_DIRS = [TEMPLATE_PATH,]
+TEMPLATE_DIRS = [TEMPLATE_PATH, ]
 
 ALLOWED_HOSTS = []
 
@@ -62,21 +62,21 @@ ROOT_URLCONF = 'sketch_a_wish.urls'
 WSGI_APPLICATION = 'sketch_a_wish.wsgi.application'
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-   'django.contrib.auth.context_processors.auth',
-   'django.core.context_processors.debug',
-   'django.core.context_processors.i18n',
-   'django.core.context_processors.media',
-   'django.core.context_processors.static',
-   'django.core.context_processors.tz',
-   'django.contrib.messages.context_processors.messages',
-   'social.apps.django_app.context_processors.backends',
-   'social.apps.django_app.context_processors.login_redirect',
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
 )
 
 AUTHENTICATION_BACKENDS = (
-   'social.backends.facebook.FacebookOAuth2',
-   'social.backends.google.GoogleOAuth2',
-   'django.contrib.auth.backends.ModelBackend',
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 SOCIAL_AUTH_PIPELINE = (
@@ -121,22 +121,22 @@ USE_L10N = True
 USE_TZ = True
 
 if not os.environ.get("HOME") == "/home/ketanbhatt":
-  #Settings for Facebook Auth
-  SOCIAL_AUTH_FACEBOOK_KEY = os.environ['FACEBOOK_KEY']
-  SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['FACEBOOK_SECRET']
+    #Settings for Facebook Auth
+    SOCIAL_AUTH_FACEBOOK_KEY = os.environ['FACEBOOK_KEY']
+    SOCIAL_AUTH_FACEBOOK_SECRET = os.environ['FACEBOOK_SECRET']
 
-  #Settings for Google Auth
-  SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['GOOGLE_KEY']
-  SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['GOOGLE_SECRET']
+    #Settings for Google Auth
+    SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ['GOOGLE_KEY']
+    SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ['GOOGLE_SECRET']
 
-  # SECURITY WARNING: keep the secret key used in production secret!
-  SECRET_KEY = os.environ['SECRET']
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = os.environ['SECRET']
 
-  # Parse database configuration from $DATABASE_URL
-  import dj_database_url
-  DATABASES['default'] = dj_database_url.config()
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config()
 else:
-  from secret import *
+    from secret import *
 
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()

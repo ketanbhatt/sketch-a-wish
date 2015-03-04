@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
+
 class Wish(models.Model):
     content = models.CharField(max_length=500)
     wisher = models.ForeignKey(User, related_name='wisher')
@@ -28,7 +28,8 @@ class Sketch(models.Model):
         verbose_name_plural = 'Sketches'
 
     def __unicode__(self):
-        return "Sketch for \""+ self.wish.content + "\""
+        return "Sketch for \"" + self.wish.content + "\""
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)

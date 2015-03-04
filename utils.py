@@ -3,6 +3,7 @@ from requests import request, HTTPError
 from django.core.files.base import ContentFile
 from urllib2 import urlopen
 
+
 def save_user_profile(backend, user, response, is_new=False, *args, **kwargs):
     if is_new:
         if backend.name == 'facebook':
@@ -32,4 +33,3 @@ def save_user_profile(backend, user, response, is_new=False, *args, **kwargs):
 
         elif backend.name == 'google-oauth2':
             UserProfile.objects.get(user=user)
-

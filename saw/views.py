@@ -2,16 +2,15 @@ from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 from saw.models import Wish, Sketch, UserProfile
 from saw.forms import WishForm, SketchForm, GetWishForm
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from django.contrib import messages
 
 from .utils import *
 
-# Create your views here.
+
 def sketchawish(request):
     return render(request, 'saw/sketchawish.html', {})
 
@@ -20,8 +19,8 @@ def get_started(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse('start'))
 
-    return render(request,
-                  'saw/get_started.html', {})
+    return render(request, 'saw/get_started.html', {})
+
 
 @login_required
 def user_logout(request):
@@ -32,7 +31,7 @@ def user_logout(request):
 
 @login_required
 def start(request):
-    curr_user = UserProfile.objects.get(user = request.user)
+    curr_user = UserProfile.objects.get(user=request.user)
     progress = curr_user.progress
 
     if request.method == "POST":
@@ -47,8 +46,8 @@ def start(request):
                 wish.wisher = request.user
                 wish.save()
 
-                curr_user = UserProfile.objects.get(user = request.user)
-                curr_user.total_wished+=1
+                curr_user = UserProfile.objects.get(user=request.user)
+                curr_user.total_wished += 1
                 curr_user.progress = 2
                 curr_user.save()
             else:
@@ -65,7 +64,7 @@ def start(request):
                 to_sketch.save()
                 Wish.objects.filter(pk=request.POST['wish']).update(locked=True, sketcher=request.user)
 
-                curr_user = UserProfile.objects.get(user = request.user)
+                curr_user = UserProfile.objects.get(user=request.user)
                 curr_user.progress = 3
                 curr_user.save()
 
@@ -75,9 +74,9 @@ def start(request):
                 print get_wish_form.errors
 
         elif 'submit_add_sketch' in which_submit:
-            needed_pk = Sketch.objects.get(wish = request.POST['wish']).pk
+            needed_pk = Sketch.objects.get(wish=request.POST['wish']).pk
 
-            sketch_form = SketchForm(request.POST, request=request, instance = Sketch.objects.get(pk=needed_pk))
+            sketch_form = SketchForm(request.POST, request=request, instance=Sketch.objects.get(pk=needed_pk))
 
             if sketch_form.is_valid():
                 sketch = sketch_form.save(commit=False)
@@ -88,8 +87,8 @@ def start(request):
                         sketch.sketch_image.save('{0}_sketch.jpg'.format(sketch.pk), request.FILES['sketch_image'])
                         sketch.save()
                         Wish.objects.filter(pk=request.POST['wish']).update(sketched=True)
-                        curr_user = UserProfile.objects.get(user = request.user)
-                        curr_user.total_sketched+=1
+                        curr_user = UserProfile.objects.get(user=request.user)
+                        curr_user.total_sketched += 1
                         curr_user.progress = 1
                         curr_user.save()
                         return HttpResponseRedirect(reverse('sketchawish'))
@@ -112,11 +111,10 @@ def start(request):
     return render(request, 'saw/start.html', {'wish_form': wish_form, 'get_wish_form': get_wish_form, 'sketch_form': sketch_form, 'progress': progress})
 
 
-
 @login_required
 def user_profile(request):
     context = RequestContext(request)
-    curr_user = UserProfile.objects.get(user = request.user)
+    curr_user = UserProfile.objects.get(user=request.user)
     context_dict = {}
     context_dict['user'] = curr_user
     return render_to_response('saw/profile.html', context_dict, context)

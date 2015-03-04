@@ -1,8 +1,7 @@
 from django.contrib import admin
 from saw.models import Wish, Sketch, UserProfile
-from django.contrib.auth.models import User
 
-# Register your models here.
+
 class WishAdmin(admin.ModelAdmin):
     list_display = ('pk', 'content', 'wisher', 'sketcher', 'created_on', 'locked', 'sketched')
 
@@ -27,6 +26,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     def get_email(self, obj):
         return obj.user.email
     get_email.short_description = "Email ID"
+
 
 admin.site.register(Wish, WishAdmin)
 admin.site.register(Sketch, SketchAdmin)
