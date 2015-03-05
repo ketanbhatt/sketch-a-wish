@@ -12,6 +12,20 @@ kb = User.objects.get()
 
 def populate():
     add_wish(content="wish 1", wisher=kb)
+    add_wish(content="wish 2", wisher=kb)
+    add_wish(content="wish 3", wisher=kb)
+    add_wish(content="wish 4", wisher=kb)
+    add_wish(content="wish 5", wisher=kb)
+    add_wish(content="wish 6", wisher=kb)
+    add_wish(content="wish 7", wisher=kb)
+    add_wish(content="wish 8", wisher=kb)
+    add_wish(content="wish 9", wisher=kb)
+    add_wish(content="wish 10", wisher=kb)
+    add_wish(content="wish 11", wisher=kb)
+    add_wish(content="wish 12", wisher=kb)
+    add_wish(content="wish 13", wisher=kb)
+    add_wish(content="wish 14", wisher=kb)
+    add_wish(content="wish 15", wisher=kb)
 
 
 def add_wish(content, wisher):

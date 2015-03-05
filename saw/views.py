@@ -1,6 +1,5 @@
 from __future__ import absolute_import
-from django.shortcuts import render_to_response, render
-from django.template import RequestContext
+from django.shortcuts import render
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -33,6 +32,7 @@ def user_logout(request):
 def start(request):
     curr_user = UserProfile.objects.get(user=request.user)
     progress = curr_user.progress
+    template_dict = {'progress': progress}
 
     if request.method == "POST":
 
@@ -72,6 +72,8 @@ def start(request):
 
             else:
                 print get_wish_form.errors
+                messages.error(request, 'Error, try again', fail_silently=True)
+                return HttpResponseRedirect(reverse('start'))
 
         elif 'submit_add_sketch' in which_submit:
             needed_pk = Sketch.objects.get(wish=request.POST['wish']).pk
@@ -109,11 +111,17 @@ def start(request):
                 print sketch_form.errors
 
     else:
-        wish_form = WishForm()
-        get_wish_form = GetWishForm(request=request)
-        sketch_form = SketchForm(request=request)
+        if progress == 1:
+            wish_form = WishForm()
+            template_dict['wish_form'] = wish_form
+        elif progress == 2:
+            get_wish_form = GetWishForm(request=request)
+            template_dict['get_wish_form'] = get_wish_form
+        elif progress == 3:
+            sketch_form = SketchForm(request=request)
+            template_dict['sketch_form'] = sketch_form
 
-    return render(request, 'saw/start.html', {'wish_form': wish_form, 'get_wish_form': get_wish_form, 'sketch_form': sketch_form, 'progress': progress})
+    return render(request, 'saw/start.html', template_dict)
 
 
 @login_required

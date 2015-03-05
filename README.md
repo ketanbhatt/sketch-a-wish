@@ -4,8 +4,9 @@ A website made for increasing social interaction among the users of the internet
 
 ##To Do:
     + Make get_wish form show random wishes
+    + Check for error messages everywhere
+    + Enable Sharing on Facebook, google, twitter, instagram
+    + Take care of location of users
     + Enable Static files on production server
     + Handle media on production server
-    + Take care of location of users
-    + Enable Sharing on Facebook, google, twitter, instagram
     + Show User Profile information inside Users link only
