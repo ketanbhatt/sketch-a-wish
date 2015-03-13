@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+import random
 from django import forms
 from .models import Wish, Sketch
 
@@ -17,7 +18,9 @@ class GetWishForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request")
         super(GetWishForm, self).__init__(*args, **kwargs)
-        self.fields["wish"].queryset = Wish.objects.exclude(wisher=self.request.user).filter(pk__in=Wish.objects.filter(is_live=True, locked=False)[:3].values_list('pk'))
+        pk_list = Wish.objects.exclude(wisher=self.request.user).filter(pk__in=Wish.objects.filter(is_live=True, locked=False)[:10].values_list('pk')).values_list('pk', flat=True)
+        desired_pk = random.sample(pk_list, 3)
+        self.fields["wish"].queryset = Wish.objects.filter(pk__in=desired_pk)
 
     class Meta:
         model = Sketch
